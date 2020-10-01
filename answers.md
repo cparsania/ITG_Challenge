@@ -234,3 +234,107 @@ vcf_first_last_and_a_random
     ##  9     1 2142731 1:2142731 C     G       315 PASS  
     ## 10     1 2276371 1:2276371 C     T       166 PASS  
     ## # … with 19,754 more rows
+
+**3.** You are the curator of a genotype dataset with a very strict
+privacy policy in place. In particular, it should be impossible to tell,
+given access to a person’s genetic data, whether they were part of your
+study by looking at a dataset you provided. A collaborator is asking you
+for some data to run tests on their code. What information can you
+safely contribute from your study?
+
+**Answer**:
+
+Considering the privacy policy, I will provide collaborator minimal
+information about the data set depending upon type of the question
+collaborator wants to address. For example, instead of giving whole data
+set I would consider giving subset of the data with labels such as
+control and treatment. I will not disclose anything which could reveal
+person’s identity or even associated clinical history.
+
+**8.** What is the p-value corresponding to standard normal z-scores of
+`10.35`, `29.7`, `45.688` and `78.1479`?
+
+**Answer**:
+
+``` r
+pnorm(10.35 , mean = 0, sd = 1, lower.tail=FALSE)
+```
+
+    ## [1] 2.092429e-25
+
+``` r
+pnorm(29.7 , mean = 0, sd = 1, lower.tail=FALSE)
+```
+
+    ## [1] 3.839307e-194
+
+``` r
+pnorm(45.688 , mean = 0, sd = 1, lower.tail=FALSE)
+```
+
+    ## [1] 0
+
+``` r
+pnorm(78.1479 , mean = 0, sd = 1, lower.tail=FALSE)
+```
+
+    ## [1] 0
+
+**9.** We want to round a column of numbers to `n` digits, with values
+with 5 as their rightmost significant digit rounded up. Use the language
+of your choice.
+
+**Answer**:
+
+``` r
+library(magrittr)
+
+
+tbl <- tibble::tibble(x = abs(rnorm(100)*100))
+
+tbl %>% dplyr::mutate(rounded = round(x, digits = 5))
+```
+
+    ## # A tibble: 100 x 2
+    ##        x rounded
+    ##    <dbl>   <dbl>
+    ##  1  38.0    38.0
+    ##  2  51.3    51.3
+    ##  3  11.8    11.8
+    ##  4  24.0    24.0
+    ##  5  45.8    45.8
+    ##  6  69.3    69.3
+    ##  7  16.3    16.3
+    ##  8 126.    126. 
+    ##  9  52.8    52.8
+    ## 10  69.9    69.9
+    ## # … with 90 more rows
+
+**10.** Is [this HRC-imputed
+file](https://drive.google.com/open?id=1dOYlwIlAyz9-i4gVy2sgpQv_4YX9Y5nU)
+missing any chromosomes? Try to find out in seconds if you can.
+
+**Answer**:
+
+`Chromosome 10` is missing.
+
+``` bash
+
+cut -d $'\t' -f 2 path/to/hrc.positions.txt.bgz | uniq | sort -n
+```
+
+### Statistical genetics
+
+**6.** An analyst studies a population of remote villages in Eastern
+Europe. They are interested in a particular variant, and compare the
+frequency in their villages (3.5%) to the EUR population frequency in
+the 1000 Genomes (0.03%). They conclude that the variant has increased
+in frequency in their villages. Do you agree, and if not, what would
+your advice be?
+
+**Answer** :
+
+No, I don’t agree with this result. The population under consideration
+(villages of eastern europe) is very small vs reference population
+(EUR). I would suggest comparison with equal size reference data which
+may reflect nearly correct enrichment %.
