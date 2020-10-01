@@ -36,4 +36,3 @@ vcf_remove_duplicates  <- function(vcf_file , keep_first_last_and_random = F){
          return(x1)
 }
 
-vcf_remove_duplicates("data/duplicates.vcf.gz" , keep_first_last_and_random = T)
